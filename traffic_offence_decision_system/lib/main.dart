@@ -29,12 +29,71 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  late String _email;
+  late String _password;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      color: Color(0xFF1D438C),
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.all(50),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
+
+                
+                onSaved: (value) {
+                  _email = value!;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  return null;
+                },
+
+                
+                onSaved: (value) {
+                  _password = value!;
+                },
+              ),
+              SizedBox(height: 32),
+              ElevatedButton(
+                onPressed: () {
+                  
+                  // if (_formKey.currentState.validate()) {
+                  //   _formKey.currentState.save();
+                  //   // login logic
+                  // }
+                },
+                child: Text('Login'),
+              ),
+              Text('Forgot password')
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
